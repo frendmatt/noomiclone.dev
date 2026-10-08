@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NoomiClone map</title>
+  <meta name="description" content="A NoomiClone custom map: open it in the game with its code.">
+  <style>
+    :root { --bg: #f7f7f9; --fg: #1d1d24; --muted: #5d5d6b; --accent: #c8102e; --card: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #14141a; --fg: #ececf1; --muted: #a3a3b2; --accent: #ff5a6e; --card: #1f1f27; }
+    }
+    body { margin: 0; background: var(--bg); color: var(--fg);
+           font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    main { max-width: 560px; margin: 0 auto; padding: 64px 16px; }
+    h1 { font-size: 2.2rem; margin: 0 0 8px; }
+    p { color: var(--muted); margin: 0 0 24px; }
+    .code { background: var(--card); border-radius: 16px; padding: 24px; text-align: center; margin: 0 0 24px;
+            font: 700 2.6rem/1.2 ui-monospace, "SF Mono", Menlo, Consolas, monospace; letter-spacing: 0.08em; }
+    .button { display: inline-block; background: var(--accent); color: #fff; border-radius: 12px; padding: 12px 20px;
+              font-weight: 700; text-decoration: none; margin: 0 8px 12px 0; border: 0; font-size: 1rem; cursor: pointer; }
+    ul { list-style: none; padding: 0; margin: 0 0 32px; }
+    li { margin: 0 0 12px; }
+    a { color: var(--accent); font-weight: 600; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    footer { font-size: 0.9rem; color: var(--muted); }
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- A map's link, noomiclone.dev/m/CODE: GitHub Pages serves this page for it (the game opens the link itself where it is installed). -->
+    <section id="map" hidden>
+      <h1>A NoomiClone map</h1>
+      <p>Someone shared a custom map with you. Its code:</p>
+      <div class="code" id="code"></div>
+      <a class="button" id="open" href="#">Open in NoomiClone</a>
+      <button class="button" id="copy" type="button">Copy code</button>
+      <p>No luck opening it? In the game, tap Create, then Enter code, and type the code above.</p>
+    </section>
+    <section id="missing" hidden>
+      <h1>Page not found</h1>
+      <p>There's nothing here. <a href="/">Go to the NoomiClone page.</a></p>
+    </section>
+    <ul>
+      <li><a href="https://play.google.com/store/apps/details?id=com.JamesWest.NoomiClone">Get it on Google Play</a></li>
+      <li><a href="https://apps.apple.com/us/app/noomiclone/id1546690510">Download on the App Store</a></li>
+    </ul>
+    <footer>Contact: <a href="mailto:Noomiclonedev@gmail.com">Noomiclonedev@gmail.com</a></footer>
+  </main>
+  <script>
+    // The game's code alphabet (MapCode.cs): no vowels, no 0 or 1. A code is 7 of them, shown XXXX-XXX.
+    var ALPHABET = "23456789BCDFGHJKMNPQRSTVWXYZ";
+    function parse(text) {
+      var code = decodeURIComponent(text || "").replace(/[-\s‐-—]/g, "").toUpperCase();
+      if (code.length !== 7) return null;
+      for (var i = 0; i < code.length; i++) if (ALPHABET.indexOf(code[i]) < 0) return null;
+      return code;
+    }
+    var match = location.pathname.match(/^\/m\/([^\/]+)\/?$/i);
+    var code = match ? parse(match[1]) : null;
+    if (code) {
+      var shown = code.slice(0, 4) + "-" + code.slice(4);
+      document.title = "NoomiClone map " + shown;
+      document.getElementById("code").textContent = shown;
+      document.getElementById("open").href = "noomiclone://m/" + code;
+      document.getElementById("copy").onclick = function () {
+        if (navigator.clipboard) navigator.clipboard.writeText(shown);
+        this.textContent = "Copied";
+      };
+      document.getElementById("map").hidden = false;
+    } else {
+      document.getElementById("missing").hidden = false;
+    }
+  </script>
+</body>
+</html>

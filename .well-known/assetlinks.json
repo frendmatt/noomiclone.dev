@@ -1,0 +1,10 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.JamesWest.NoomiClone",
+      "sha256_cert_fingerprints": ["6B:5B:DE:7F:44:19:06:6D:CE:80:10:63:4A:33:5D:D1:6A:89:E4:45:C0:9F:6A:0B:A6:2E:43:85:ED:1C:9A:BC", "11:35:92:6F:0E:04:DA:3A:A6:33:7F:43:EA:F9:35:FD:A4:26:26:AC:19:3C:BC:5B:F4:64:88:65:4E:BA:DE:45"]
+    }
+  }
+]
