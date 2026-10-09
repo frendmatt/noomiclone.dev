@@ -52,7 +52,10 @@
     // The game's code alphabet (MapCode.cs): no vowels, no 0 or 1. A code is 7 of them, shown XXXX-XXX.
     var ALPHABET = "23456789BCDFGHJKMNPQRSTVWXYZ";
     function parse(text) {
-      var code = decodeURIComponent(text || "").replace(/[-\s‐-—]/g, "").toUpperCase();
+      var raw = text || "";
+      // A malformed escape (/m/%E0) is no code, not a broken page.
+      try { raw = decodeURIComponent(raw); } catch (e) { return null; }
+      var code = raw.replace(/[-\s‐-—]/g, "").toUpperCase();
       if (code.length !== 7) return null;
       for (var i = 0; i < code.length; i++) if (ALPHABET.indexOf(code[i]) < 0) return null;
       return code;
