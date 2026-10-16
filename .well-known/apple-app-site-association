@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["V5MQFB239Y.com.JamesWest.NoomiClone"],
+        "components": [{ "/": "/m/*", "comment": "A custom map's link: the game opens it on the map." }]
+      }
+    ]
+  }
+}
