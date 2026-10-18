@@ -22,8 +22,11 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { -webkit-text-size-adjust: 100%; }
+/* Smooth only for in-page jumps after a click: on load, smooth scrolling stops a link's #anchor (such as
+   /privacy/#delete-account, Play's delete-account link) from being reached. */
+html:focus-within { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html:focus-within { scroll-behavior: auto; } }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.6 var(--body); overflow-wrap: break-word; }
 img { display: block; max-width: 100%; height: auto; }
 [hidden] { display: none !important; }
@@ -205,6 +208,25 @@ figcaption b { font: 700 17px/1.3 var(--display); color: var(--ink); }
 .button.ink { background: var(--ink); }
 .button.ink:hover { background: #22385a; }
 .button svg { width: 18px; height: 18px; }
+
+/* privacy policy: the legal text's own markup (h2/h3, .lead, tables, .contact) in the site's look */
+.policyhead .meta { color: rgba(255,255,255,.92); font-size: 15px; }
+.policyhead h1 { margin-bottom: 4px; }
+.policy { max-width: 820px; color: var(--ink); }
+.policy p, .policy ul, .policy table, .policy .contact { margin: 0 0 14px; }
+.policy h2 { font-size: clamp(20px, 2.4vw, 24px); margin: 38px 0 12px; padding-top: 18px; border-top: 1px solid var(--sky-line); scroll-margin-top: 16px; }
+.policy h3 { font-size: 17px; margin: 24px 0 8px; scroll-margin-top: 16px; }
+.policy .lead { color: var(--ink-2); font-size: 18px; }
+.policy ul { padding-left: 1.3em; }
+.policy li { margin: 6px 0; }
+.policy li::marker { color: var(--sky-deep); }
+.policy table { width: 100%; border-collapse: collapse; font-size: 15px; display: block; overflow-x: auto; }
+.policy th, .policy td { text-align: left; padding: 10px 12px; border: 1px solid var(--sky-line); vertical-align: top; }
+.policy th { background: var(--sky-pale); }
+.policy code { font: 0.9em var(--mono); background: var(--sky-pale); padding: 1px 5px; border-radius: 4px; }
+.policy .contact { background: var(--sky-pale); border-radius: var(--radius); padding: 18px 20px; }
+.policy footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--sky-line); color: var(--ink-2); font-size: 14px; }
+.policy :target { background: #fff6d6; border-radius: 6px; box-shadow: 0 0 0 8px #fff6d6; }
 
 /* ---------- map link page ---------- */
 .skyfull { min-height: 100vh; background: linear-gradient(180deg, var(--sky-deep), var(--sky) 70%, #8cc8f2); }
