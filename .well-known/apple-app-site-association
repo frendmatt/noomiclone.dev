@@ -3,10 +3,7 @@
     "details": [
       {
         "appIDs": ["V5MQFB239Y.com.JamesWest.NoomiClone"],
-        "components": [
-          { "/": "/m/*", "comment": "A custom map's link: the game opens it on the map." },
-          { "/": "/r/*", "comment": "A live room's link: the game joins the room." }
-        ]
+        "components": [{ "/": "/m/*", "comment": "A custom map's link: the game opens it on the map." }]
       }
     ]
   }
